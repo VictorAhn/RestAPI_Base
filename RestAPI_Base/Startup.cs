@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RestAPI_Base.Infrastructure;
+using RestAPI_Base.Services.Admin;
+using RestAPI_Base.Services.User.Login;
 using System.Net;
 using System.Text;
 
@@ -64,6 +66,9 @@ namespace RestAPI_Base
             services.AddHttpClient();
             services.AddSingleton<IJwtAuthManager, JwtAuthManager>();
             services.AddHostedService<JwtRefreshTokenCache>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IUserAuthService, UserAuthService>();
+            services.AddScoped<IAdminService, AdminService>();
 
 
             ServicePointManager.ServerCertificateValidationCallback = ((sender, certificate, chain, sslPolicyErrors) => true);
@@ -150,7 +155,7 @@ namespace RestAPI_Base
             {
                 c.SwaggerEndpoint("./swagger/User/swagger.json", "[사용자] API");
                 c.SwaggerEndpoint("./swagger/Admin/swagger.json", "[관리자] API");
-                c.DocumentTitle = "PolyMath API";
+                c.DocumentTitle = "RESTful API_Swagger";
                 c.DisplayRequestDuration();
                 c.RoutePrefix = string.Empty;
             });
@@ -163,6 +168,13 @@ namespace RestAPI_Base
             app.UseCors("AllowAll");
             app.UseAuthentication();
             app.UseAuthorization();
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //    //endpoints.MapHub<Hubs.ChatHub>("/chathub");
+            //    endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }

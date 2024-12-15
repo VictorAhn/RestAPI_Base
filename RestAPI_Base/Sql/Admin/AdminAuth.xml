@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mapper>
+  <SELECT id="AdminLoginSuccessReturn">
+    <![CDATA[
+SELECT
+  userName
+FROM
+  user_info
+WHERE
+  userId=@userId
+AND
+  password=@password
+    ]]>
+  </SELECT>
+</mapper>

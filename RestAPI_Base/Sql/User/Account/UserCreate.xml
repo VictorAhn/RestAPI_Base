@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mapper>
+  <SELECT id="CheckUser">
+    <![CDATA[
+SELECT
+  COUNT(*)
+FROM
+  user_info
+WHERE
+  userId = @userId;
+    ]]>
+  </SELECT>
+
+	<INSERT id="CreateUser">
+		<![CDATA[
+INSERT INTO
+  user_info
+  (
+      userId,
+      password,
+      userName,
+      contactTelNo,
+      email,
+      expireDate
+  )
+VALUE
+  (
+      @userId,
+      @password,
+      @userName,
+      @contactTelNo,
+      @email,
+      @expireDate
+  );
+    ]]>
+	</INSERT>
+</mapper>

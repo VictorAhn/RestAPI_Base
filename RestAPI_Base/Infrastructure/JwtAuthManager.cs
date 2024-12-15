@@ -22,7 +22,7 @@ namespace RestAPI_Base.Infrastructure
     public class JwtAuthManager : IJwtAuthManager
     {
         public IImmutableDictionary<string, RefreshToken> UsersRefreshTokensReadOnlyDictionary => _usersRefreshTokens.ToImmutableDictionary();
-        private readonly ConcurrentDictionary<string, RefreshToken> _usersRefreshTokens;  // can store in a database or a distributed cache
+        private readonly ConcurrentDictionary<string, RefreshToken> _usersRefreshTokens;
         private readonly JwtTokenConfig _jwtTokenConfig;
         private readonly byte[] _secret;
 
@@ -95,7 +95,7 @@ namespace RestAPI_Base.Infrastructure
                 throw new SecurityTokenException("Invalid token");
             }
 
-            return GenerateTokens(userName, principal.Claims.ToArray(), now); // need to recover the original claims
+            return GenerateTokens(userName, principal.Claims.ToArray(), now);
         }
         private bool CustomLifetimeValidator(DateTime? notBefore, DateTime? expires, SecurityToken tokenToValidate, TokenValidationParameters @param)
         {

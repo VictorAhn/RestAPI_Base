@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mapper>
+  <SELECT id="UserLoginSuccessReturn">
+    <![CDATA[
+SELECT
+  userName, 
+  contactTelNo,
+  email,
+  DATE_FORMAT(expireDate, '%Y-%m-%d %T') AS expireDate,
+  CASE WHEN (TIMESTAMPDIFF(SECOND, CONVERT_TZ(UTC_TIMESTAMP(), '+00:00','+09:00'), expireDate) > 0) THEN 0 ELSE 1 END AS isExpire
+FROM
+  user_info
+WHERE
+  userId=@userId
+AND
+  password=@password
+    ]]>
+  </SELECT>
+</mapper>
