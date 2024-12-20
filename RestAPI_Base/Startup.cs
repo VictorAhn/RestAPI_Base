@@ -23,7 +23,7 @@ namespace RestAPI_Base
         {
             services.AddControllers();
             var jwtTokenConfig = Configuration.GetSection("jwtTokenConfig").Get<JwtTokenConfig>();
-            jwtTokenConfig.Secret = ProjectInfo.SigningKey;
+            jwtTokenConfig.Secret = Environment.GetEnvironmentVariable("Service_SignKey");
             jwtTokenConfig.Issuer = ProjectInfo.HostName;
             jwtTokenConfig.Audience = ProjectInfo.HostName;
             services.AddSingleton(jwtTokenConfig);
