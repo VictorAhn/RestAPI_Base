@@ -63,9 +63,11 @@ namespace RestAPI_Base.Services.User.Login
                     usePeriod = userInfo.expireDate
                 });
 
+                mySqlDapperHelper.Commit();
             }
             catch (Exception exception)
             {
+                mySqlDapperHelper.Rollback();
                 _logger.LogInformation(exception.Message);
                 _logger.LogInformation(exception.StackTrace);
             }
